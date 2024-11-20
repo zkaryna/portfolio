@@ -210,20 +210,28 @@
         sidemenu.style.right = "-200px";
     }    
 </script>
+<form name="submit-to-google-sheet">
+    <input type="text" name="Name" placeholder="Your Name" required>
+    <input type="email" name="Email" placeholder="Your Email" required>
+    <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+    <button type="submit" class="btn btn2">Submit</button>
+</form>
+<span id="msg"></span>
+
 <script>
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyB-xyD6ThCKm4qi6cT6q8Fm84ynVt4SsJPt0ofcU4_mWUCXKnSWErA80OEFlsTw3BNMg/exec'
-   const form = document.forms['submit-to-google-sheet']
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwrD7Q9Qy411r1XGqAcbXvbNU405i72hSCzneRJ4xdTLZ9Fi4l_ZNfgO1tsatizq-idcg/exec'; // Вставте URL з Google Apps Script
+    const form = document.forms['submit-to-google-sheet'];
     const msg = document.getElementById("msg");
 
     form.addEventListener('submit', e => {
-        e.preventDefault(); // Зупиняє стандартну відправку форми
+        e.preventDefault(); // Запобігає стандартному надсиланню форми
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
             .then(response => {
                 msg.innerHTML = "Message sent successfully!";
                 setTimeout(() => {
-                    msg.innerHTML = ""; // Очистка повідомлення через 5 секунд
+                    msg.innerHTML = ""; // Очищення повідомлення через 5 секунд
                 }, 5000);
-                form.reset(); // Очищення форми після відправки
+                form.reset(); // Очищення форми після успішного надсилання
             })
             .catch(error => {
                 msg.innerHTML = "Failed to send message. Please try again.";
@@ -231,6 +239,7 @@ const scriptURL = 'https://script.google.com/macros/s/AKfycbyB-xyD6ThCKm4qi6cT6q
             });
     });
 </script>
+
 
 
 
