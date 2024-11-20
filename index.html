@@ -210,6 +210,27 @@
         sidemenu.style.right = "-200px";
     }    
 </script>
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyrS5YU-xxpC90nDOx3vWipi-HeCvigEuRbbhdi4hdkkfmWBF5LWPjrVcVYoPfI5gE/exec';
+    const form = document.forms['submit-to-google-sheet'];
+    const msg = document.getElementById("msg");
+
+    form.addEventListener('submit', e => {
+        e.preventDefault(); // Зупиняє стандартну відправку форми
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => {
+                msg.innerHTML = "Message sent successfully!";
+                setTimeout(() => {
+                    msg.innerHTML = ""; // Очистка повідомлення через 5 секунд
+                }, 5000);
+                form.reset(); // Очищення форми після відправки
+            })
+            .catch(error => {
+                msg.innerHTML = "Failed to send message. Please try again.";
+                console.error('Error!', error.message);
+            });
+    });
+</script>
 
 
 
